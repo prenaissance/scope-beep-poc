@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scope Creep Preventer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            width: 250px;
+            margin: 0;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+        }
+
+        .v-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .back-button {
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .page {
+            margin-top: 10px;
+        }
+
+        .icon-button {
+            background-color: transparent;
+            border: 1px solid black;
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: transparent;
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .workspace-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .workspace-list li {
+            margin: 5px 0;
+        }
+
+        .size-2 {
+            width: 8px;
+            height: 8px;
+        }
+
+        .size-4 {
+            width: 16px;
+            height: 16px;
+        }
+
+        .size-6 {
+            width: 24px;
+            height: 24px;
+        }
+
+        .size-8 {
+            width: 32px;
+            height: 32px;
+        }
+
+        .w-32 {
+            width: 128px;
+        }
+
+        .text-orange {
+            color: #ff8c00;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+
+        .text-green {
+            color: green;
+        }
+
+        .border-green {
+            border: 1px solid green;
+        }
+
+        .mx-auto {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Projects Dashboard -->
+    <div id="dashboard-page" class="page">
+        <h2 class="text-center">Projects Dashboard</h2>
+        <div class="v-stack">
+            <button class="w-32" id="aquawatch-btn">AquaWatch</button>
+            <button class="w-32" id="test-project-btn">Test Project</button>
+            <div class="flex justify-center">
+                <button class="icon-button font-bold text-green border-green size-6" id="add-project-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Overview -->
+    <div id="overview-page" class="page hidden">
+        <div class="back-button icon-button font-bold" id="overview-back">←</div>
+        <h2 class="text-center" id="project-name">Project Name</h2>
+        <p>Issues detected: <span id="scope-issues" class="font-bold text-orange">2</span></p>
+        <button class="w-32" id="go-to-project-btn">Go to project</button>
+        <h3>Connected Workspaces</h3>
+        <ul class="workspace-list" id="workspace-list">
+            <li>
+                <button id="trello-workspace-btn" class="stack w-32">
+                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path
+                            d="M392.3 32H56.1C25.1 32 0 57.1 0 88c-.1 0 0-4 0 336 0 30.9 25.1 56 56 56h336.2c30.8-.2 55.7-25.2 55.7-56V88c.1-30.8-24.8-55.8-55.6-56zM197 371.3c-.2 14.7-12.1 26.6-26.9 26.6H87.4c-14.8 .1-26.9-11.8-27-26.6V117.1c0-14.8 12-26.9 26.9-26.9h82.9c14.8 0 26.9 12 26.9 26.9v254.2zm193.1-112c0 14.8-12 26.9-26.9 26.9h-81c-14.8 0-26.9-12-26.9-26.9V117.2c0-14.8 12-26.9 26.8-26.9h81.1c14.8 0 26.9 12 26.9 26.9v142.1z" />
+                    </svg>
+                    Trello
+                </button>
+            </li>
+        </ul>
+
+        <div class="flex justify-center">
+            <button id="link-workspace-btn" class="icon-button font-bold text-green border-green size-6">+</button>
+        </div>
+    </div>
+
+    <!-- Workspace Linking -->
+    <div id="linking-page" class="page hidden">
+        <div class="back-button icon-button" id="linking-back">←</div>
+        <h2 class="text-center">Workspace Linking</h2>
+        <form id="linking-form" class="v-stack">
+            <div class="v-stack">
+                <label for="platform-select">Select Platform:</label>
+                <select class="w-32" id="platform-select" name="platform">
+                    <option value="Trello">Trello</option>
+                    <option value="Jira">Jira</option>
+                    <option value="Azure Devops">Azure Devops</option>
+                </select>
+            </div>
+            <div class="v-stack">
+                <label for="workspace-link">Workspace Link:</label>
+                <input class="w-32" type="text" id="workspace-link" name="workspaceLink">
+            </div>
+            <div class="v-stack">
+                <label for="api-token">Api Token:</label>
+                <input class="w32" type="text" id="api-token" name="apiToken">
+            </div>
+            <button class="w-32 mx-auto" type="submit" id="link-submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

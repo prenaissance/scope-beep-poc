@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Scope Beep",
+  "version": "1.0",
+  "description": "Chrome extension to prevent scope creep for projects.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "beep_16.jpg",
+      "48": "beep_48.jpg",
+      "128": "beep_128.jpg"
+    }
+  },
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://trello.com/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
