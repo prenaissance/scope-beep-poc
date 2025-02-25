@@ -11,7 +11,7 @@
             flex-direction: column;
             align-items: center;
             font-family: Arial, sans-serif;
-            width: 250px;
+            width: 225px;
             margin: 0;
             padding: 1rem;
             border-radius: 8px;
@@ -27,7 +27,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: .75rem;
         }
 
         .hidden {
@@ -43,11 +43,12 @@
 
         .page {
             margin-top: 10px;
+            height: 400px;
         }
 
         .icon-button {
             background-color: transparent;
-            border: 1px solid black;
+            border: 2px solid black;
             border-radius: 50%;
             padding: 5px;
             cursor: pointer;
@@ -66,7 +67,8 @@
         }
 
         .workspace-list li {
-            margin: 5px 0;
+            margin: 0 5px 5px 0;
+            float: left;
         }
 
         .size-2 {
@@ -91,6 +93,11 @@
 
         .w-32 {
             width: 128px;
+        }
+
+        .w-64{
+            width: 200px;
+            height: 40px;
         }
 
         .text-orange {
@@ -125,68 +132,88 @@
         .text-center {
             text-align: center;
         }
+        input, select, textarea{
+            -ms-box-sizing:content-box;
+            -moz-box-sizing:content-box;
+            -webkit-box-sizing:content-box; 
+            box-sizing:content-box;
+        }
     </style>
 </head>
 
 <body>
     <!-- Projects Dashboard -->
     <div id="dashboard-page" class="page">
+        <p style="text-align: right; margin: -5px 0 0 0">My Account</p>
         <h2 class="text-center">Projects Dashboard</h2>
         <div class="v-stack">
-            <button class="w-32" id="aquawatch-btn">AquaWatch</button>
-            <button class="w-32" id="test-project-btn">Test Project</button>
+            <button class="w-64" id="aquawatch-btn" style="display: flex; justify-content: space-between; align-items: center;"><span>AquaWatch</span> <span >❌1 ⚠️2</span></button>
+            <button class="w-64" id="test-project-btn"  style="text-align: left;">Software Project</button>
+            <button class="w-64" id="test-project-btn"  style="text-align: left;">Test Project</button>
+            <button class="w-64" id="test-project-btn"  style="text-align: left;">Test Project</button>
+            <button class="w-64" id="test-project-btn"  style="text-align: left;">Test Project</button>
             <div class="flex justify-center">
-                <button class="icon-button font-bold text-green border-green size-6" id="add-project-btn">+</button>
+                <button class="icon-button font-bold size-8" style="margin-top: 10px;" id="add-project-btn"><b>+</b></button>
             </div>
         </div>
     </div>
 
     <!-- Project Overview -->
     <div id="overview-page" class="page hidden">
-        <div class="back-button icon-button font-bold" id="overview-back">←</div>
+        <div class="back-button  font-bold" id="overview-back">←</div>
         <h2 class="text-center" id="project-name">Project Name</h2>
-        <p>Issues detected: <span id="scope-issues" class="font-bold text-orange">2</span></p>
-        <button class="w-32" id="go-to-project-btn">Go to project</button>
-        <h3>Connected Workspaces</h3>
+        <p>❌ Issues detected: <span id="scope-issues" class="font-bold" style="color: red;">1</span></p>
+        <p>⚠️ Warnings: <span id="scope-issues" class="font-bold" style="color: #ff8c00;">2</span></p>
+        <button class="w-64" id="go-to-project-btn">Go to project</button>
+        <h3 style="margin-top: 20px;">Connected Workspaces</h3>
         <ul class="workspace-list" id="workspace-list">
             <li>
-                <button id="trello-workspace-btn" class="stack w-32">
-                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <button id="trello-workspace-btn" class="stack" style="width: 40px; height: 40px; padding: 5px;">
+                    <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                         <path
                             d="M392.3 32H56.1C25.1 32 0 57.1 0 88c-.1 0 0-4 0 336 0 30.9 25.1 56 56 56h336.2c30.8-.2 55.7-25.2 55.7-56V88c.1-30.8-24.8-55.8-55.6-56zM197 371.3c-.2 14.7-12.1 26.6-26.9 26.6H87.4c-14.8 .1-26.9-11.8-27-26.6V117.1c0-14.8 12-26.9 26.9-26.9h82.9c14.8 0 26.9 12 26.9 26.9v254.2zm193.1-112c0 14.8-12 26.9-26.9 26.9h-81c-14.8 0-26.9-12-26.9-26.9V117.2c0-14.8 12-26.9 26.8-26.9h81.1c14.8 0 26.9 12 26.9 26.9v142.1z" />
                     </svg>
-                    Trello
+                    <!-- Trello -->
                 </button>
+            </li>
+            <li>
+                <button id="jira-workspace-btn" class="stack" style="width: 40px; height: 40px; padding: 5px;">
+                    <img src="jira.svg" alt="">
+                    <!-- Trello -->
+                </button>
+            </li>
+            <li>
+                <div class="flex justify-center">
+                    <button style="width: 40px; height: 40px; font-size: large;" id="link-workspace-btn" class="icon-button font-bold">+</button>
+                </div>
             </li>
         </ul>
 
-        <div class="flex justify-center">
-            <button id="link-workspace-btn" class="icon-button font-bold text-green border-green size-6">+</button>
-        </div>
+        
     </div>
 
     <!-- Workspace Linking -->
     <div id="linking-page" class="page hidden">
-        <div class="back-button icon-button" id="linking-back">←</div>
+        <div class="back-button" id="linking-back">←</div>
         <h2 class="text-center">Workspace Linking</h2>
         <form id="linking-form" class="v-stack">
             <div class="v-stack">
-                <label for="platform-select">Select Platform:</label>
-                <select class="w-32" id="platform-select" name="platform">
+                <!-- <label for="platform-select">Select Platform:</label> -->
+                <select style="width: 202px; height: 25px; border: 1.5px gray solid; border-radius: 4px;" id="platform-select" name="platform" aria-placeholder="Platform">
                     <option value="Trello">Trello</option>
                     <option value="Jira">Jira</option>
                     <option value="Azure Devops">Azure Devops</option>
                 </select>
             </div>
             <div class="v-stack">
-                <label for="workspace-link">Workspace Link:</label>
-                <input class="w-32" type="text" id="workspace-link" name="workspaceLink">
+                <!-- <label for="workspace-link">Workspace Link:</label> -->
+                <input style="width: 200px; height: 25px; border: 1.5px gray solid; border-radius: 4px;"  type="text" id="workspace-link" name="workspaceLink" placeholder="Workspace Link">
             </div>
             <div class="v-stack">
-                <label for="api-token">Api Token:</label>
-                <input class="w32" type="text" id="api-token" name="apiToken">
+                <!-- <label for="api-token">Api Token:</label> -->
+                <input style="width: 200px; height: 25px; border: 1.5px gray solid; border-radius: 4px;" type="text" id="api-token" name="apiToken" placeholder="Api Token">
             </div>
-            <button class="w-32 mx-auto" type="submit" id="link-submit">Submit</button>
+            <button class="w-64 mx-auto" type="submit" id="link-submit">Submit</button>
         </form>
     </div>
 
